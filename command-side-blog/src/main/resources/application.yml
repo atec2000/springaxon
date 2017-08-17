@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  
+spring:
+  application:
+    name: command-side-blog
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.axonframework: DEBUG
+    com.springaxon: DEBUG  
