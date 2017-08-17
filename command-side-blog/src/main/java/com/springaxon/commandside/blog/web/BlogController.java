@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springaxon.commandside.blog.command.CreateBlogPostCommand;
 import com.springaxon.commandside.blog.vo.req.CreateBlogPostRequest;
 
 
@@ -31,13 +32,11 @@ public class BlogController {
     public void create(@RequestBody CreateBlogPostRequest request, HttpServletResponse response) {
         LOG.debug(CreateBlogPostRequest.class.getSimpleName() + " request received");
         
-        /*
         CreateBlogPostCommand command = new CreateBlogPostCommand(request.getTitle(),
                 request.getRawContent(), request.getPublicSlug(), request.getDraft(), request.getBroadcast(),
                 request.getPublishAt(), request.getCategory(), "user");
         commandGateway.sendAndWait(command);
         LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
-        */
     }
         
 }
