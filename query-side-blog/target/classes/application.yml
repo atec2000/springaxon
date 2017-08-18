@@ -1,0 +1,30 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: query-side-blog
+    exchange: blog.events.fanout.exchange
+    queue: blog.view.event.stream   
+  rabbitmq:
+    host: my-rabbit
+    username: test
+    password: password
+    
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.axonframework: DEBUG
+    com.springaxon: DEBUG
+    
+info:
+  app:
+    name: Blog service - Query Side
+    description: Blog service - Query Side (CQRS)
+        
+axon:
+  eventhandling:
+    processors:
+      default:
+        source: messageSourceBlog

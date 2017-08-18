@@ -1,6 +1,16 @@
 version: "2"
 
 services:
+
+  my-mysql:
+    image: mysql/mysql-server:5.6
+    ports:
+     - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=blog
+      - MYSQL_ROOT_HOST=%
+      
   my-rabbit:
     image: rabbitmq:3-management
     hostname: rabbitmq
