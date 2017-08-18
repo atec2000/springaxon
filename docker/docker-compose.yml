@@ -11,10 +11,17 @@ services:
       RABBITMQ_DEFAULT_USER: test
       RABBITMQ_DEFAULT_PASS: password
       RABBITMQ_NODENAME: my-rabbit
-      
+            
   command-side-blog:
     image: springaxon/command-side-blog
     ports:
      - "8080:8080"
     entrypoint: ./wait-for-it.sh rabbitmq:5672 -t 60 --
     command: java -jar /app.jar
+    
+  query-side-project:
+    image: springaxon/query-side-blog
+    ports:
+     - "8083:8083"
+    entrypoint: ./wait-for-it.sh rabbitmq:5672 -t 60 --
+    command: java -jar /app.jar 
