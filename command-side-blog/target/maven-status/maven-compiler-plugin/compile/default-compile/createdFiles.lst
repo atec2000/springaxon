@@ -1,7 +1,0 @@
-com/springaxon/commandside/blog/vo/req/CreateBlogPostRequest.class
-com/springaxon/commandside/blog/web/BlogController.class
-com/springaxon/commandside/blog/configuration/AxonConfiguration.class
-com/springaxon/commandside/blog/configuration/RabbitConfiguration.class
-com/springaxon/commandside/blog/Application.class
-com/springaxon/commandside/blog/aggregate/BlogPostAggregate.class
-com/springaxon/commandside/blog/command/CreateBlogPostCommand.class

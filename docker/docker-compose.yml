@@ -26,12 +26,12 @@ services:
     image: springaxon/command-side-blog
     ports:
      - "8080:8080"
-    entrypoint: ./wait-for-it.sh rabbitmq:5672 -t 60 --
-    command: java -jar /app.jar
-    
+    depends_on:
+     - my-rabbit
+         
   query-side-project:
     image: springaxon/query-side-blog
     ports:
      - "8083:8083"
-    entrypoint: ./wait-for-it.sh rabbitmq:5672 -t 60 --
-    command: java -jar /app.jar 
+    depends_on:
+     - my-rabbit
