@@ -22,6 +22,12 @@ services:
       RABBITMQ_DEFAULT_PASS: password
       RABBITMQ_NODENAME: my-rabbit
             
+  my-elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.2
+    hostname: elasticsearch
+    ports:
+     - "9200:9200"
+            
   command-side-blog:
     image: springaxon/command-side-blog
     ports:
