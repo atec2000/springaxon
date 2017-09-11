@@ -13,9 +13,9 @@
 
 	<modules>
 		<module>common</module>
-		<module>common-blog</module>
-		<module>command-side-blog</module>
-		<module>query-side-blog</module>
+		<module>common-order</module>
+		<module>command-side-order</module>
+		<module>query-side-order</module>
 	</modules>
 
 	<properties>

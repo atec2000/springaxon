@@ -1,4 +1,4 @@
-package com.springaxon.commandside.blog.web;
+package com.springaxon.commandside.order.web;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,29 +14,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springaxon.commandside.blog.command.CreateBlogPostCommand;
-import com.springaxon.commandside.blog.vo.req.CreateBlogPostRequest;
+import com.springaxon.commandside.order.command.CreateOrderCommand;
+import com.springaxon.commandside.order.vo.req.CreateOrderRequest;
+
 
 
 @RestController
-@RequestMapping(value = "/blogpostcommands")
-public class BlogController {
+@RequestMapping(value = "/orders")
+public class OrderController {
 	
-    private static final Logger LOG = LoggerFactory.getLogger(BlogController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private CommandGateway commandGateway;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void create(@RequestBody CreateBlogPostRequest request, HttpServletResponse response) {
-        LOG.debug(CreateBlogPostRequest.class.getSimpleName() + " request received");
+    public void create(@RequestBody CreateOrderRequest request, HttpServletResponse response) {
+        LOG.debug(CreateOrderRequest.class.getSimpleName() + " request received");
         
-        CreateBlogPostCommand command = new CreateBlogPostCommand(request.getTitle(),
+        CreateOrderCommand command = new CreateOrderCommand(request.getTitle(),
                 request.getRawContent(), request.getPublicSlug(), request.getDraft(), request.getBroadcast(),
                 request.getPublishAt(), request.getCategory(), "user");
         commandGateway.sendAndWait(command);
-        LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
+        LOG.debug(CreateOrderCommand.class.getSimpleName() + " sent to command gateway: Order [{}] ", command.getId());
     }
         
 }

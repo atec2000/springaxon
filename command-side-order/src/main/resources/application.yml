@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: command-side-blog
+    name: command-side-order
   rabbitmq:
     host: my-rabbit
     username: test
@@ -18,10 +18,10 @@ logging:
     
 info:
   app:
-    name: Blog service - Command Side
+    name: Order service - Command Side
     description: Blog service - Command Side (CQRS)
         
 axon:
   amqp:
-    exchange: blog.events.fanout.exchange
+    exchange: order.events.fanout.exchange
     

@@ -1,10 +1,10 @@
-package com.springaxon.commandside.blog.vo.req;
+package com.springaxon.commandside.order.vo.req;
 
 import java.util.Date;
 
-import com.springaxon.common.blog.model.BlogPostCategory;
+import com.springaxon.common.order.model.OrderCategory;
 
-public class CreateBlogPostRequest {
+public class CreateOrderRequest {
 
     private String title;
     private String rawContent;
@@ -12,9 +12,9 @@ public class CreateBlogPostRequest {
     private Boolean draft;
     private Boolean broadcast;
     private Date publishAt;
-    private BlogPostCategory category;
+    private OrderCategory category;
 
-    public CreateBlogPostRequest() {
+    public CreateOrderRequest() {
     }
 
     public String getTitle() {
@@ -65,11 +65,11 @@ public class CreateBlogPostRequest {
         this.publishAt = publishAt;
     }
 
-    public BlogPostCategory getCategory() {
+    public OrderCategory getCategory() {
         return category;
     }
 
-    public void setCategory(BlogPostCategory category) {
+    public void setCategory(OrderCategory category) {
         this.category = category;
     }
 	

@@ -3,9 +3,9 @@ server:
 
 spring:
   application:
-    name: query-side-blog
-    exchange: blog.events.fanout.exchange
-    queue: blog.view.event.stream   
+    name: query-side-order
+    exchange: order.events.fanout.exchange
+    queue: order.view.event.stream   
   rabbitmq:
     host: my-rabbit
     username: test
@@ -20,11 +20,11 @@ logging:
     
 info:
   app:
-    name: Blog service - Query Side
-    description: Blog service - Query Side (CQRS)
+    name: Order service - Query Side
+    description: Order service - Query Side (CQRS)
         
 axon:
   eventhandling:
     processors:
       default:
-        source: messageSourceBlog
+        source: messageSourceOrder

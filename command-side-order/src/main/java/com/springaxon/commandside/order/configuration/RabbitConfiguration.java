@@ -1,4 +1,4 @@
-package com.springaxon.commandside.blog.configuration;
+package com.springaxon.commandside.order.configuration;
 
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.FanoutExchange;

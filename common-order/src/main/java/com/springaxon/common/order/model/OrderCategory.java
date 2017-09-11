@@ -1,13 +1,13 @@
-package com.springaxon.common.blog.model;
+package com.springaxon.common.order.model;
 
-public enum BlogPostCategory {
+public enum OrderCategory {
 	
     ENGINEERING("Engineering", "engineering"), RELEASES("Releases", "releases"), NEWS_AND_EVENTS("News and Events", "news");
 
     private String displayName;
     private String urlSlug;
 
-    BlogPostCategory(String displayName, String urlSlug) {
+    OrderCategory(String displayName, String urlSlug) {
         this.displayName = displayName;
         this.urlSlug = urlSlug;
     }

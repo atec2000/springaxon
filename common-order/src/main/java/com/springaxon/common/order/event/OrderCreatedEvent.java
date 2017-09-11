@@ -1,11 +1,11 @@
-package com.springaxon.common.blog.event;
+package com.springaxon.common.order.event;
 
 import java.util.Date;
 
-import com.springaxon.common.blog.model.BlogPostCategory;
+import com.springaxon.common.order.model.OrderCategory;
 import com.springaxon.common.event.AbstractEvent;
 
-public class BlogPostCreatedEvent extends AbstractEvent {
+public class OrderCreatedEvent extends AbstractEvent {
 
 	private static final long serialVersionUID = -5017075322968712692L;
 	
@@ -15,15 +15,15 @@ public class BlogPostCreatedEvent extends AbstractEvent {
     private Boolean draft;
     private Boolean broadcast;
     private Date publishAt;
-    private BlogPostCategory category;
+    private OrderCategory category;
     private String authorId;
 
-    public BlogPostCreatedEvent() {
+    public OrderCreatedEvent() {
 
     }
 
-    public BlogPostCreatedEvent(String id, String title, String rawContent, String publicSlug, Boolean draft, Boolean broadcast, Date publishAt,
-                                BlogPostCategory category, String authorId) {
+    public OrderCreatedEvent(String id, String title, String rawContent, String publicSlug, Boolean draft, Boolean broadcast, Date publishAt,
+                                OrderCategory category, String authorId) {
         super(id);
         this.title = title;
         this.rawContent = rawContent;
@@ -59,7 +59,7 @@ public class BlogPostCreatedEvent extends AbstractEvent {
         return publishAt;
     }
 
-    public BlogPostCategory getCategory() {
+    public OrderCategory getCategory() {
         return category;
     }
 

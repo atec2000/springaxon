@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>command-side-blog</artifactId>
-	<name>command-side-blog</name>
+	<artifactId>command-side-order</artifactId>
+	<name>command-side-order</name>
 	<parent>
 		<groupId>com.springaxon</groupId>
 		<artifactId>springaxon</artifactId>
@@ -10,13 +10,13 @@
 	</parent>
 	
 	<properties>
-		<start-class>com.springaxon.commandside.blog.Application</start-class>
+		<start-class>com.springaxon.commandside.order.Application</start-class>
 	</properties>	
 
 	<dependencies>
 		<dependency>
 			<groupId>com.springaxon</groupId>
-			<artifactId>common-blog</artifactId>
+			<artifactId>common-order</artifactId>
 			<version>${project.parent.version} </version>
 		</dependency>
 		<dependency>

@@ -1,4 +1,4 @@
-package com.springaxon.queryside.blog.configuration;
+package com.springaxon.queryside.order.configuration;
 
 import org.axonframework.amqp.eventhandling.DefaultAMQPMessageConverter;
 import org.axonframework.amqp.eventhandling.spring.SpringAMQPMessageSource;
@@ -67,7 +67,7 @@ public class RabbitConfiguration {
     }
     
     @Bean
-    public SpringAMQPMessageSource messageSourceBlog(Serializer serializer) {
+    public SpringAMQPMessageSource messageSourceOrder(Serializer serializer) {
         return new SpringAMQPMessageSource(new DefaultAMQPMessageConverter(serializer)) {
 
             @RabbitListener(queues = "${spring.application.queue}")

@@ -1,4 +1,4 @@
-package com.springaxon.commandside.blog.command;
+package com.springaxon.commandside.order.command;
 
 import java.util.Date;
 import java.util.UUID;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.springaxon.common.blog.model.BlogPostCategory;
+import com.springaxon.common.order.model.OrderCategory;
 
 /**
  * A command for creating a blog post.
@@ -17,7 +17,7 @@ import com.springaxon.common.blog.model.BlogPostCategory;
  * @author idugalic
  *
  */
-public class CreateBlogPostCommand {
+public class CreateOrderCommand {
 
     @TargetAggregateIdentifier
     private String id;
@@ -38,11 +38,11 @@ public class CreateBlogPostCommand {
     @NotNull
     private Date publishAt;
     @NotNull
-    private BlogPostCategory category;
+    private OrderCategory category;
     private String authorId;
 
-    public CreateBlogPostCommand(String title, String rawContent, String publicSlug,
-                                 Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category, String authorId) {
+    public CreateOrderCommand(String title, String rawContent, String publicSlug,
+                                 Boolean draft, Boolean broadcast, Date publishAt, OrderCategory category, String authorId) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.rawContent = rawContent;
@@ -82,7 +82,7 @@ public class CreateBlogPostCommand {
         return publishAt;
     }
 
-    public BlogPostCategory getCategory() {
+    public OrderCategory getCategory() {
         return category;
     }
 

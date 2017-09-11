@@ -1,4 +1,4 @@
-package com.springaxon.commandside.blog.aggregate;
+package com.springaxon.commandside.order.aggregate;
 
 import java.util.Date;
 
@@ -9,9 +9,9 @@ import org.axonframework.spring.stereotype.Aggregate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.springaxon.commandside.blog.command.CreateBlogPostCommand;
-import com.springaxon.common.blog.event.BlogPostCreatedEvent;
-import com.springaxon.common.blog.model.BlogPostCategory;
+import com.springaxon.commandside.order.command.CreateOrderCommand;
+import com.springaxon.common.order.event.OrderCreatedEvent;
+import com.springaxon.common.order.model.OrderCategory;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
@@ -22,9 +22,9 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  *
  */
 @Aggregate
-public class BlogPostAggregate{
+public class OrderAggregate{
 
-    private static final Logger LOG = LoggerFactory.getLogger(BlogPostAggregate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OrderAggregate.class);
 
     /**
      * Aggregates that are managed by Axon must have a unique identifier. Strategies
@@ -39,7 +39,7 @@ public class BlogPostAggregate{
     private Boolean draft;
     private Boolean broadcast;
     private Date publishAt;
-    private BlogPostCategory category;
+    private OrderCategory category;
     private String authorId;
 
     /**
@@ -48,7 +48,7 @@ public class BlogPostAggregate{
      * BlogPostAggregate's Id in order to make the Aggregate reflect it's true logical
      * state.
      */
-    public BlogPostAggregate() {
+    public OrderAggregate() {
     }
 
     /**
@@ -61,10 +61,10 @@ public class BlogPostAggregate{
      * @param command
      */
     @CommandHandler
-    public BlogPostAggregate(CreateBlogPostCommand command) {
+    public OrderAggregate(CreateOrderCommand command) {
         LOG.debug("Command: 'CreateBlogPostCommand' received.");
         LOG.debug("Queuing up a new BlogPostCreatedEvent for blog post '{}'", command.getId());
-        apply(new BlogPostCreatedEvent(command.getId(), command.getTitle(),
+        apply(new OrderCreatedEvent(command.getId(), command.getTitle(),
                 command.getRawContent(), command.getPublicSlug(), command.getDraft(), command.getBroadcast(),
                 command.getPublishAt(), command.getCategory(), command.getAuthorId()));
     }
@@ -79,7 +79,7 @@ public class BlogPostAggregate{
      * @param event
      */
     @EventSourcingHandler
-    public void on(BlogPostCreatedEvent event) {
+    public void on(OrderCreatedEvent event) {
         this.id = event.getId();
         this.title = event.getTitle();
         this.rawContent = event.getRawContent();
@@ -124,7 +124,7 @@ public class BlogPostAggregate{
         return publishAt;
     }
 
-    public BlogPostCategory getCategory() {
+    public OrderCategory getCategory() {
         return category;
     }
 

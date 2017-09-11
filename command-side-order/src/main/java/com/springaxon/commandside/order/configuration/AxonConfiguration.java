@@ -1,4 +1,4 @@
-package com.springaxon.commandside.blog.configuration;
+package com.springaxon.commandside.order.configuration;
 
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.SimpleCommandBus;
