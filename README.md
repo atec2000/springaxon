@@ -2,7 +2,7 @@
 cd ..
 mvn clean install
 DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build  #Linux build image
-mvn docker:build #Windows build image
+(mvn docker:build #Windows build image)
 cd docker
 docker-compose up
 docker-compose rm -v
