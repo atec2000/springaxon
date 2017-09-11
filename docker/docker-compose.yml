@@ -8,7 +8,7 @@ services:
      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=blog
+      - MYSQL_DATABASE=order
       - MYSQL_ROOT_HOST=%
       
   my-rabbit:
@@ -28,15 +28,15 @@ services:
     ports:
      - "9200:9200"
             
-  command-side-blog:
-    image: springaxon/command-side-blog
+  command-side-order:
+    image: springaxon/command-side-order
     ports:
      - "8080:8080"
     depends_on:
      - my-rabbit
          
-  query-side-project:
-    image: springaxon/query-side-blog
+  query-side-order:
+    image: springaxon/query-side-order
     ports:
      - "8083:8083"
     depends_on:
