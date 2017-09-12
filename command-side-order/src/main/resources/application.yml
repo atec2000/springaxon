@@ -8,7 +8,17 @@ spring:
     host: my-rabbit
     username: test
     password: password
-
+  datasource:
+    url: jdbc:mysql://my-mysql:3306/order
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    validation-query: SELECT 1
+  jpa:
+        database: mysql
+        show-sql: true
+        hibernate:
+            ddl-auto: create-drop
 logging:
   level:
     root: INFO
@@ -19,7 +29,7 @@ logging:
 info:
   app:
     name: Order service - Command Side
-    description: Blog service - Command Side (CQRS)
+    description: Order service - Command Side (CQRS)
         
 axon:
   amqp:

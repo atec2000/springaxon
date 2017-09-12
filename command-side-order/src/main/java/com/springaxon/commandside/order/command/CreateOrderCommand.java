@@ -1,15 +1,14 @@
 package com.springaxon.commandside.order.command;
 
-import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.springaxon.common.order.model.OrderCategory;
+import com.springaxon.common.order.model.LineItem;
 
 /**
  * A command for creating a blog post.
@@ -23,71 +22,25 @@ public class CreateOrderCommand {
     private String id;
     @NotNull(message = "Title is mandatory")
     @NotBlank(message = "Title is mandatory")
-    private String title;
-    @NotNull(message = "rawContent is mandatory")
-    @NotBlank(message = "rawContent is mandatory")
-    private String rawContent;
-    @NotNull(message = "PublicSlug is mandatory")
-    @NotBlank(message = "PublicSlug is mandatory")
-    private String publicSlug;
-    @NotNull
-    private Boolean draft;
-    @NotNull
-    private Boolean broadcast;
-    @Future(message = "Publish at date must be the future")
-    @NotNull
-    private Date publishAt;
-    @NotNull
-    private OrderCategory category;
-    private String authorId;
+    private String name;
+	private Set<LineItem> lineItems;
 
-    public CreateOrderCommand(String title, String rawContent, String publicSlug,
-                                 Boolean draft, Boolean broadcast, Date publishAt, OrderCategory category, String authorId) {
+    public CreateOrderCommand(String name, Set<LineItem> lineItems) {
         this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.rawContent = rawContent;
-        this.publicSlug = publicSlug;
-        this.draft = draft;
-        this.broadcast = broadcast;
-        this.publishAt = publishAt;
-        this.category = category;
-        this.authorId = authorId;
+        this.name = name;
+        this.lineItems = lineItems;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getRawContent() {
-        return rawContent;
-    }
-
-    public String getPublicSlug() {
-        return publicSlug;
-    }
-
-    public Boolean getDraft() {
-        return draft;
-    }
-
-    public Boolean getBroadcast() {
-        return broadcast;
-    }
-
-    public Date getPublishAt() {
-        return publishAt;
-    }
-
-    public OrderCategory getCategory() {
-        return category;
-    }
-
-    public String getAuthorId() {
-        return authorId;
-    }
+	public Set<LineItem> getLineItems() {
+		return lineItems;
+	}
 
 }

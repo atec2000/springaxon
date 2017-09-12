@@ -33,9 +33,7 @@ public class OrderController {
     public void create(@RequestBody CreateOrderRequest request, HttpServletResponse response) {
         LOG.debug(CreateOrderRequest.class.getSimpleName() + " request received");
         
-        CreateOrderCommand command = new CreateOrderCommand(request.getTitle(),
-                request.getRawContent(), request.getPublicSlug(), request.getDraft(), request.getBroadcast(),
-                request.getPublishAt(), request.getCategory(), "user");
+        CreateOrderCommand command = new CreateOrderCommand(request.getName(), request.getLineItems());
         commandGateway.sendAndWait(command);
         LOG.debug(CreateOrderCommand.class.getSimpleName() + " sent to command gateway: Order [{}] ", command.getId());
     }

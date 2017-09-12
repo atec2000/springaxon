@@ -1,9 +1,18 @@
 package com.springaxon.commandside.order.aggregate;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
+import org.axonframework.commandhandling.model.AggregateMember;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.slf4j.Logger;
@@ -11,20 +20,22 @@ import org.slf4j.LoggerFactory;
 
 import com.springaxon.commandside.order.command.CreateOrderCommand;
 import com.springaxon.common.order.event.OrderCreatedEvent;
-import com.springaxon.common.order.model.OrderCategory;
+import com.springaxon.commandside.order.domain.LineItem;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
 /**
- * A BlogPost aggregate root.
+ * A Order aggregate root.
  * 
  * @author idugalic
  *
  */
+//@Aggregate(repository="orderRepository")
 @Aggregate
-public class OrderAggregate{
+@Entity
+public class UserOrder {
 
-    private static final Logger LOG = LoggerFactory.getLogger(OrderAggregate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserOrder.class);
 
     /**
      * Aggregates that are managed by Axon must have a unique identifier. Strategies
@@ -33,22 +44,18 @@ public class OrderAggregate{
      */
     @AggregateIdentifier
     private String id;
-    private String title;
-    private String rawContent;
-    private String publicSlug;
-    private Boolean draft;
-    private Boolean broadcast;
-    private Date publishAt;
-    private OrderCategory category;
-    private String authorId;
+	private String name;
 
-    /**
+   @AggregateMember
+    private Set<LineItem> lineItems;
+
+   /**
      * This default constructor is used by the Repository to construct a prototype
-     * BlogPostAggregate. Events are then used to set properties such as the
-     * BlogPostAggregate's Id in order to make the Aggregate reflect it's true logical
+     * UserOrder aggregate. Events are then used to set properties such as the
+     * UserOrder aggregate's Id in order to make the Aggregate reflect it's true logical
      * state.
      */
-    public OrderAggregate() {
+    public UserOrder() {
     }
 
     /**
@@ -61,12 +68,10 @@ public class OrderAggregate{
      * @param command
      */
     @CommandHandler
-    public OrderAggregate(CreateOrderCommand command) {
+    public UserOrder(CreateOrderCommand command) {
         LOG.debug("Command: 'CreateBlogPostCommand' received.");
         LOG.debug("Queuing up a new BlogPostCreatedEvent for blog post '{}'", command.getId());
-        apply(new OrderCreatedEvent(command.getId(), command.getTitle(),
-                command.getRawContent(), command.getPublicSlug(), command.getDraft(), command.getBroadcast(),
-                command.getPublishAt(), command.getCategory(), command.getAuthorId()));
+        apply(new OrderCreatedEvent(command.getId(), command.getName(), command.getLineItems()));
     }
 
     /**
@@ -81,55 +86,45 @@ public class OrderAggregate{
     @EventSourcingHandler
     public void on(OrderCreatedEvent event) {
         this.id = event.getId();
-        this.title = event.getTitle();
-        this.rawContent = event.getRawContent();
-        this.publicSlug = event.getPublicSlug();
-        this.draft = event.isDraft();
-        this.broadcast = event.isBroadcast();
-        this.publishAt = event.getPublishAt();
-        this.category = event.getCategory();
-        this.authorId = event.getAuthorId();
-        LOG.debug("Applied: 'BlogPostCreatedEvent' [{}]", event.getId());
+        this.name = event.getName();
+        Set<LineItem> lineItems = new HashSet<LineItem>();
+        for (com.springaxon.common.order.model.LineItem li : event.getLineItems()) {
+        	LineItem lineItem = new LineItem();
+        	lineItem.setName(li.getName());
+        	lineItem.setQuantity(li.getQuantity());
+        	lineItem.setUnitPrice(li.getUnitPrice());
+        	lineItems.add(lineItem);
+        }
+        this.lineItems = lineItems;        
+        LOG.debug("Applied: 'OrderCreatedEvent' [{}]", event.getId());
     }
 
-    public static Logger getLog() {
-        return LOG;
-    }
-
+    @Id
     public String getId() {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getRawContent() {
-        return rawContent;
+    @Column
+    public String getName() {
+        return name;
     }
+    
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getPublicSlug() {
-        return publicSlug;
-    }
-
-    public Boolean getDraft() {
-        return draft;
-    }
-
-    public Boolean getBroadcast() {
-        return broadcast;
-    }
-
-    public Date getPublishAt() {
-        return publishAt;
-    }
-
-    public OrderCategory getCategory() {
-        return category;
-    }
-
-    public String getAuthorId() {
-        return authorId;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "orderId")
+	public Set<LineItem> getLineItems() {
+		return lineItems;
+	}  
+    
+	public void setLineItems(Set<LineItem> lineItems) {
+		this.lineItems = lineItems;
+	}    
 
 }
