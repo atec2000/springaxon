@@ -13,8 +13,6 @@ import com.springaxon.common.order.model.LineItem;
 /**
  * A command for creating a blog post.
  * 
- * @author idugalic
- *
  */
 public class CreateOrderCommand {
 

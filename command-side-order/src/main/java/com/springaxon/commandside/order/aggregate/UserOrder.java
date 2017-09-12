@@ -27,8 +27,6 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 /**
  * A Order aggregate root.
  * 
- * @author idugalic
- *
  */
 //@Aggregate(repository="orderRepository")
 @Aggregate

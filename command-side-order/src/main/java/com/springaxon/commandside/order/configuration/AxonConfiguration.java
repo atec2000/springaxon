@@ -21,8 +21,6 @@ import com.springaxon.commandside.order.aggregate.UserOrder;
  * A configuration for axonframework.
  * Axonframework is used to support eventsourcing and CQRS.
  * 
- * @author idugalic
- *
  */
 @Configuration
 public class AxonConfiguration {
