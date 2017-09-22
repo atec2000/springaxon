@@ -20,7 +20,7 @@ public class OrderViewEventHandler {
 
     @EventHandler
     public void handle(OrderCreatedEvent event, @SequenceNumber Long version) {
-        LOG.info("=-=-=-=-=  received OrderCreatedEvent: [{}] ", event.getId());
+        LOG.info("=-=-=-=-=  received OrderCreatedEvent on query side: [{}] ", event.getId());
         //blogPostRepository.save(new BlogPost(event, version));
     }
 

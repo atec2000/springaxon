@@ -13,14 +13,15 @@ import javax.persistence.OneToMany;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateMember;
+import org.axonframework.commandhandling.model.AggregateRoot;
+import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.springaxon.commandside.order.command.CreateOrderCommand;
-import com.springaxon.common.order.event.OrderCreatedEvent;
 import com.springaxon.commandside.order.domain.LineItem;
+import com.springaxon.common.order.event.OrderCreatedEvent;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 
@@ -28,8 +29,8 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
  * A Order aggregate root.
  * 
  */
-//@Aggregate(repository="orderRepository")
-@Aggregate
+//@Aggregate
+@AggregateRoot
 @Entity
 public class UserOrder {
 
@@ -42,9 +43,10 @@ public class UserOrder {
      */
     @AggregateIdentifier
     private String id;
+    
 	private String name;
 
-   @AggregateMember
+    @AggregateMember
     private Set<LineItem> lineItems;
 
    /**
@@ -65,11 +67,19 @@ public class UserOrder {
      *
      * @param command
      */
-    @CommandHandler
-    public UserOrder(CreateOrderCommand command) {
-        LOG.debug("Command: 'CreateBlogPostCommand' received.");
-        LOG.debug("Queuing up a new BlogPostCreatedEvent for blog post '{}'", command.getId());
-        apply(new OrderCreatedEvent(command.getId(), command.getName(), command.getLineItems()));
+    //@CommandHandler
+    public UserOrder(String id, String name, Set<LineItem> lineItems) {
+        LOG.debug("Queuing up a new OrderCreatedEvent for order '{}'", id);
+        Set<com.springaxon.common.order.model.LineItem> lineItems4Event = new HashSet<com.springaxon.common.order.model.LineItem>();
+        for (LineItem li : lineItems) {
+        	com.springaxon.common.order.model.LineItem lineItem4Event = new com.springaxon.common.order.model.LineItem();
+        	lineItem4Event.setName(li.getName());
+        	lineItem4Event.setQuantity(li.getQuantity());
+        	lineItem4Event.setUnitPrice(li.getUnitPrice());
+        	lineItems4Event.add(lineItem4Event);
+        }
+
+        apply(new OrderCreatedEvent(id, name, lineItems4Event));
     }
 
     /**
@@ -81,7 +91,8 @@ public class UserOrder {
      *
      * @param event
      */
-    @EventSourcingHandler
+    //@EventSourcingHandler
+    @EventHandler    
     public void on(OrderCreatedEvent event) {
         this.id = event.getId();
         this.name = event.getName();
