@@ -37,7 +37,8 @@ public class UserOrderCommandHandler {
         	lineItem.setUnitPrice(li.getUnitPrice());
         	lineItems.add(lineItem);
         }
-        repository.newInstance(() -> new UserOrder(command.getId(), command.getName(), lineItems));
+        //repository.newInstance(() -> new UserOrder(command.getId(), command.getName(), lineItems));
+        repository.newInstance(() -> newAndSaveUserOrder(command.getId(), command.getName(), lineItems));
         
         //UserOrder userOrder = new UserOrder(command.getId(), command.getName(), lineItems);
         //userOrderJdbcRepository.save(userOrder);
@@ -45,6 +46,14 @@ public class UserOrderCommandHandler {
         return command.getId();
     }
     
+    private UserOrder newAndSaveUserOrder(String id, String name, Set<LineItem> lineItems) {
+    	UserOrder userOrder = new UserOrder(id, name, lineItems);
+    	userOrderJdbcRepository.save(userOrder);
+    	
+    	return userOrder;
+    }
+    
+	@SuppressWarnings("unused")
 	private Aggregate<UserOrder> loadUserOrderAggregate(String id) {
         return repository.load(id, null);
     }

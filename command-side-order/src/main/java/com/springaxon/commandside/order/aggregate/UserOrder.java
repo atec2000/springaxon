@@ -42,12 +42,16 @@ public class UserOrder {
      * id field as such.
      */
     @AggregateIdentifier
+    @Id
     private String id;
     
+    @Column
 	private String name;
 
     @AggregateMember
-    private Set<LineItem> lineItems;
+    @OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "orderId")
+   private Set<LineItem> lineItems;
 
    /**
      * This default constructor is used by the Repository to construct a prototype
@@ -108,7 +112,6 @@ public class UserOrder {
         LOG.debug("Applied: 'OrderCreatedEvent' [{}]", event.getId());
     }
 
-    @Id
     public String getId() {
         return id;
     }
@@ -117,7 +120,6 @@ public class UserOrder {
 		this.id = id;
 	}
 
-    @Column
     public String getName() {
         return name;
     }
@@ -126,8 +128,6 @@ public class UserOrder {
 		this.name = name;
 	}
 
-    @OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "orderId")
 	public Set<LineItem> getLineItems() {
 		return lineItems;
 	}  
