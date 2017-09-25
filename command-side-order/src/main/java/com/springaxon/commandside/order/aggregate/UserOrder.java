@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.springaxon.commandside.order.domain.LineItem;
+import com.springaxon.commandside.order.repository.UserOrderJdbcRepository;
 import com.springaxon.common.order.event.OrderCreatedEvent;
 
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
@@ -35,6 +36,8 @@ import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
 public class UserOrder {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserOrder.class);
+    
+    private UserOrderJdbcRepository userOrderJdbcRepository;
 
     /**
      * Aggregates that are managed by Axon must have a unique identifier. Strategies
@@ -73,6 +76,10 @@ public class UserOrder {
      */
     //@CommandHandler
     public UserOrder(String id, String name, Set<LineItem> lineItems) {
+    	this.id = id;
+    	this.name = name;
+    	this.lineItems = lineItems;
+    	
         LOG.debug("Queuing up a new OrderCreatedEvent for order '{}'", id);
         Set<com.springaxon.common.order.model.LineItem> lineItems4Event = new HashSet<com.springaxon.common.order.model.LineItem>();
         for (LineItem li : lineItems) {
@@ -95,6 +102,7 @@ public class UserOrder {
      *
      * @param event
      */
+    /*
     //@EventSourcingHandler
     @EventHandler    
     public void on(OrderCreatedEvent event) {
@@ -111,6 +119,7 @@ public class UserOrder {
         this.lineItems = lineItems;        
         LOG.debug("Applied: 'OrderCreatedEvent' [{}]", event.getId());
     }
+    */
 
     public String getId() {
         return id;

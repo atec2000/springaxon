@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import com.springaxon.commandside.order.aggregate.UserOrder;
-import com.springaxon.commandside.order.handler.UserOrderCommandHandler;
+import com.springaxon.commandside.order.commandhandler.UserOrderCommandHandler;
 
 /**
  * A configuration for axonframework. Axonframework is used to support

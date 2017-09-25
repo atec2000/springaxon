@@ -1,4 +1,4 @@
-package com.springaxon.commandside.order.handler;
+package com.springaxon.commandside.order.commandhandler;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +28,7 @@ public class UserOrderCommandHandler {
 
     @CommandHandler
     public String CreateUserOrder(CreateOrderCommand command) throws Exception {
-        LOG.debug("Command: 'CreateBlogPostCommand' received.");	
+        LOG.debug("Command: 'CreateOrderCommand' received.");	
         Set<LineItem> lineItems = new HashSet<LineItem>();
         for (com.springaxon.common.order.model.LineItem li : command.getLineItems()) {
         	LineItem lineItem = new LineItem();
@@ -47,6 +47,7 @@ public class UserOrderCommandHandler {
     }
     
     private UserOrder newAndSaveUserOrder(String id, String name, Set<LineItem> lineItems) {
+        LOG.debug("save UserOrder: {}", id);	
     	UserOrder userOrder = new UserOrder(id, name, lineItems);
     	userOrderJdbcRepository.save(userOrder);
     	
