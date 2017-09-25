@@ -37,8 +37,6 @@ public class UserOrder {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserOrder.class);
     
-    private UserOrderJdbcRepository userOrderJdbcRepository;
-
     /**
      * Aggregates that are managed by Axon must have a unique identifier. Strategies
      * similar to GUID are often used. The annotation 'AggregateIdentifier' identifies the
